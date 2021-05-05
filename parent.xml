@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.mycompany</groupId>
+        <artifactId>bom</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>bom.xml</relativePath>
+    </parent>
+    <groupId>com.mycompany</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <!-- Add properties files -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>properties-maven-plugin</artifactId>
+                    <version>1.0.0</version>
+                    <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                        <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                        <files>
+                            <file>src/main/resources/config.properties</file>
+                        </files>
+                        </configuration>
+                    </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.mule.tools.maven</groupId>
+                    <artifactId>mule-maven-plugin</artifactId>
+                    <version>${mule.maven.plugin.version}</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <cloudHubDeployment>
+                            <server>cloudhub</server>
+                            <businessGroup/>
+                            <environment>${api.environment}</environment>
+                            <region>us-east-2</region>
+                            <muleVersion>${app.runtime.server}</muleVersion>
+                            <applyLatestRuntimePatch>true</applyLatestRuntimePatch>
+                            <workers>1</workers>
+                            <workerType>MICRO</workerType>
+                            <objectStoreV2>true</objectStoreV2>
+                            <applicationName>${api.name}</applicationName>
+                            <deploymentTimeout>600000</deploymentTimeout>
+                            <properties>
+                                <anypoint.platform.client_id>${api.clientid}</anypoint.platform.client_id>
+                                <anypoint.platform.client_secret>${api.clientsecret}</anypoint.platform.client_secret>
+                            </properties>
+                        </cloudHubDeployment>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

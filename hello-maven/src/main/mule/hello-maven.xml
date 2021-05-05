@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="f63646d7-0719-43d3-8c49-ade34e040b6a" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="622ea715-0826-4f1c-91fa-a1f612e8ca19" file="config.properties" />
+	<flow name="hello-mavenFlow" doc:id="7ef8d16c-6fa9-4a7a-8956-00a05b513b8f" >
+		<http:listener doc:name="GET /hello" doc:id="eb2a8a91-92e9-4f9a-a627-2d7c31a60335" config-ref="HTTP_Listener_config" path="/hello" allowedMethods="GET"/>
+		<set-payload value='#["Hello Maven!"]' doc:name="Set Payload" doc:id="0206e761-4ceb-4f64-8d91-2570373b6b29" />
+	</flow>
+</mule>
